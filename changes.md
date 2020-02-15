@@ -1,3 +1,8 @@
+# V4.0
+_This is a rewrite version. If you want to use the old unsupported version, use `npm i -s bananenbase@3.2.11`_
+
+Everything is new!
+
 # V3.2.10
 ## Fixed
 - Typedefs are now working when you're using a typescript file
