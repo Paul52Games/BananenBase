@@ -3,6 +3,10 @@ _This is a rewrite version. If you want to use the old unsupported version, use 
 
 Everything is new!
 
+# V3.2.11
+## Fixed
+- A database chrash issue
+
 # V3.2.10
 ## Fixed
 - Typedefs are now working when you're using a typescript file
