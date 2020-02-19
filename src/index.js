@@ -1,3 +1,5 @@
+throw new Error("I'm sorry, but you can't use the beta version of the BananenBase. It's still too much in development to try!");
+
 const loadModule = require("./moduleFunctions/moduleLoader.js");
 global._BB_startingDir = __dirname;
 
