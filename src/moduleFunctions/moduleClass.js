@@ -5,7 +5,7 @@ module.exports = class BananenBaseModule {
     this.toConfigure = options.toConfigure;
   }
 
-  execute(thing, ...args) {
+  internal_BB_Execute(thing, ...args) {
     if (thing === "internal.beforeReady" && this.toConfigure) {
       let toConfigure = (options) => {
         if (!options) throw new Error(`Module configuration ${this.name} error:\nNo opions found!`);

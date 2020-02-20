@@ -6,22 +6,22 @@ module.exports = function loadModule(file, BananenBaseClass) {
       if (typeof file === "string") file = require(path);
       let a = new file();
       a.BananenBase = BananenBaseClass;
-      a.execute("beforeload");
+      a.internal_BB_Execute("beforeload");
       try {
         for (let i = 0; i < a.dependencies.length; i++) {
           require(a.dependencies[i]);
         }
-        a.execute("onload");
-        await a.execute("internal.beforeReady");
-        await a.execute("beforeReady");
+        a.internal_BB_Execute("onload");
+        await a.internal_BB_Execute("internal.beforeReady");
+        await a.internal_BB_Execute("beforeReady");
         res(a);
       } catch(e) {
         console.log(`Installing dependencies for ${a.name}...`);
         childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, async () => {
           console.log(`Dependencies for ${a.name} installed!`);
-          a.execute("onload");
-          await a.execute("internal.beforeReady");
-          await a.execute("beforeReady");
+          a.internal_BB_Execute("onload");
+          await a.internal_BB_Execute("internal.beforeReady");
+          await a.internal_BB_Execute("beforeReady");
           res(a);
         });
       }

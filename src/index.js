@@ -1,11 +1,10 @@
-throw new Error("I'm sorry, but you can't use the beta version of the BananenBase. It's still too much in development to try!");
-
 const loadModule = require("./moduleFunctions/moduleLoader.js");
 global._BB_startingDir = __dirname;
 
 module.exports = exports = class BananenBase {
-  constructor(token, modules = [require("./modules/start.js")]) {
+  constructor(token) {
     if (!token) throw new Error("Invalid Discord Bot Token!");
+    let modules = [require("./modules/start.js")];
     this.token = token;
     this.loading = true;
     this.toConfigure = {};
@@ -27,7 +26,7 @@ module.exports = exports = class BananenBase {
         throw new Error(`Module "${oldName}" not found!`);
       });
       if (this.toConfigure[module.name.toLowerCase()]) await this.toConfigure[module.name.toLowerCase()](options);
-      await module.execute("afterConfigure");
+      await module.internal_BB_Execute("afterConfigure");
     });
     return this;
   }
