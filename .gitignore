@@ -1,12 +1,7 @@
 # Test files
-tBot.js
-tTest.js
-tConfig.js
-tServer.js
+database.json
 database.sqlite
-.eslintrc.json
-setup.js
-# Comming soon: - A [setup file](/setup.js) and a [run file](/run.js)
+testfile.js
 
 # Logs
 logs
