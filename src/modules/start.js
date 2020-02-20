@@ -17,6 +17,6 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
 
   start() {
     this.client.login(this.BananenBase.token);
-    console.log("\nStarting!");
+    console.log("BananenBase loaded!\n\nStarting Discord Bot...");
   }
 }
