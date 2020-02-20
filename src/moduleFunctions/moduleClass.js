@@ -1,11 +1,12 @@
 module.exports = class BananenBaseModule {
   constructor(options = {}) {
+    this.BananenBase = {};
     this.dependencies = options.dependencies || [];
     this.name = options.name || "???";
     this.toConfigure = options.toConfigure;
   }
 
-  internal_BB_Execute(thing, ...args) {
+  async internal_BB_Execute(thing, ...args) {
     if (thing === "internal.beforeReady" && this.toConfigure) {
       let toConfigure = (options) => {
         if (!options) throw new Error(`Module configuration ${this.name} error:\nNo opions found!`);
@@ -27,6 +28,6 @@ module.exports = class BananenBaseModule {
       return;
     }
     if (typeof this[thing] !== "function") return;
-    this[thing](...args);
+    await this[thing](...args);
   }
 }
