@@ -4,7 +4,7 @@ global._BB_startingDir = __dirname;
 module.exports = exports = class BananenBase {
   constructor(token) {
     if (!token) throw new Error("Invalid Discord Bot Token!");
-    console.log("Starting the BananenBase...");
+    console.log("Loading the BananenBase...");
     let modules = [require("./modules/start.js")];
     this.token = token;
     this.loading = true;
@@ -17,6 +17,11 @@ module.exports = exports = class BananenBase {
       if (!this.start) await loadModule("./modules/start.js", this);
       this.loading = false;
     });
+
+    console.warn = (...args) => {
+      process.stdout.write("\x1b[33m[WARN]\x1b[0m ");
+      console.log(...args);
+    }
   }
 
   addModule(name, options) {
@@ -50,4 +55,4 @@ module.exports = exports = class BananenBase {
 let modules = require("./moduleFunctions/moduleList.js");
 modules.setExport(exports);
 
-exports.command = require("./modules/loader/commandConstructor.js");
+exports.command = require("./modules/loader-constructors/command.js");
