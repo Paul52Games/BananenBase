@@ -5,7 +5,7 @@ let files = fs.readdirSync(`${global._BB_startingDir}/modules/`, {
 if (!files) files = [];
 let list = {};
 files.forEach(f => {
-  list[f.split(".")[0].toLowerCase()] = require(`${global._BB_startingDir}/modules/${f}`);
+  if (f.split(".") && f.split(".")[1] && f.split(".")[1].toLowerCase() === "js") list[f.split(".")[0].toLowerCase()] = require(`${global._BB_startingDir}/modules/${f}`);
 });
 
 module.exports = exports = list;
