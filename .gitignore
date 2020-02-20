@@ -2,6 +2,7 @@
 database.json
 database.sqlite
 testfile.js
+*.test.js
 
 # Logs
 logs
