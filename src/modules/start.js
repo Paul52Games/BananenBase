@@ -17,6 +17,21 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
 
   start() {
     this.client.login(this.BananenBase.token);
-    console.log("BananenBase loaded!\n\nStarting Discord Bot...");
+    console.log(`BananenBase loaded with ${this.BananenBase.modules.length} modules!\n\nStarting Discord Bot...`);
+    this.messageHandler = require("../message.js");
+    this.client.on("message", (message) => {
+      this.messageHandler(message, this.BananenBase);
+    }); 
+    this.client.on("ready", () => {
+      for (let i = 0; i < this.BananenBase.modules.length; i++) {
+        let module = this.BananenBase.modules[i];
+        module.internal_BB_Execute("onReady");
+      }
+      for (let i in this.BananenBase.commands) {
+        let command = this.BananenBase.commands[i];
+        if (typeof command.ready === "function") command.ready();
+      }
+      console.log("Discord Bot Online!");
+    });
   }
 }
