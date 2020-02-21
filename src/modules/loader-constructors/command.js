@@ -1,4 +1,4 @@
-module.exports = class BananenBaseCommand {
+module.exports = class Command {
   constructor(BananenBase, settings, ..._args) {
     this.client = BananenBase.client;
     this._BananenBase = BananenBase;

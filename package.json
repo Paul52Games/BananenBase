@@ -2,8 +2,11 @@
   "name": "bananenbase",
   "version": "3.2.10",
   "description": "Thé discord.js AND express framework!",
-  "main": "src/index.js",
-  "dependencies": {},
+  "main": "./src/BananenBase.js",
+  "types": "./src/BananenBase.d.ts",
+  "dependencies": {
+    "@types/express": "^4.17.2"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
