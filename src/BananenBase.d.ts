@@ -69,7 +69,7 @@ declare namespace BananenBase {
 		): void
 	}
 	export let modules = {
-		loader: BananenBaseModule_Loaeder,
+		loader: BananenBaseModule_Loader,
 		start: BananenBaseModule_Start
 	}
 }
@@ -80,7 +80,7 @@ declare class BananenBaseModule_Start extends Module {
 	start(): void
 }
 
-declare class BananenBaseModule_Loaeder extends Module {
+declare class BananenBaseModule_Loader extends Module {
 	constructor()
 	afterConfigure(): void
 	getFiles(
