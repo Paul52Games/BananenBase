@@ -7,12 +7,13 @@ module.exports = class Command {
     if (typeof this.enabled !== "boolean") this.enabled = true;
 
     this.help = {
-      name: settings.name || false,
+      name: settings.name || "",
       description: settings.description || false,
       usage: settings.usage || false,
       examples: settings.examples || [],
       args: settings.args || []
     };
+    this.help.name.toLowerCase();
 
     let args = [...arguments];
     args.shift();
