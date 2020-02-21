@@ -10,6 +10,7 @@ module.exports = exports = class BananenBase {
     this.loading = true;
     this.toConfigure = {};
     this.commandChecks = [];
+    this.modules = [];
     setTimeout(async () => {
       for (let i = 0; i < modules.length; i++) {
         await loadModule(modules[i], this);
@@ -17,11 +18,17 @@ module.exports = exports = class BananenBase {
       if (!this.start) await loadModule("./modules/start.js", this);
       this.loading = false;
     });
+    this.prefix = ".";
 
     console.warn = (...args) => {
       process.stdout.write("\x1b[33m[WARN]\x1b[0m ");
       console.log(...args);
     }
+  }
+
+  set(key, value) {
+    this[key] = value;
+    return this;
   }
 
   addModule(name, options) {
