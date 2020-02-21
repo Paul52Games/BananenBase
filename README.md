@@ -1,6 +1,8 @@
 # BananenBase
 Welcome! This is the new work-in-progress version 4.0 of the BananenBase, with usefull features and much better code.
 
+The new version of the BananenBase is about **500 ms** faster than the old version!
+
 ## Features (Old and New)
 - Write only a couple lines and make a whole discord bot!
 - Use different modules for your needs
@@ -9,12 +11,14 @@ _And much more_
 
 ## Todo
 **Base**
-- [ ] Base (Token etc)
-- [ ] Module loader
+- [X] Base (Token etc)
+- [X] Module loader
+- [X] Start module
 
 **Modules**
-- [ ] Database module
+- [X] Alias module
 - [ ] Loader module
+- [ ] Database module
 - [ ] Message flags module
 - [ ] Smart event module
 - [ ] Smart debug module
