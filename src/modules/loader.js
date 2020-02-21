@@ -96,4 +96,8 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
       res(true);
     });
   }
+  
+  ready() {
+    // ...
+  }
 }
