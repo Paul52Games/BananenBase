@@ -13,6 +13,7 @@ module.exports = function loadModule(file, BananenBaseClass) {
         }
         a.internal_BB_Execute("onload");
         await a.internal_BB_Execute("internal.beforeReady");
+        BananenBaseClass.modules.push(a);
         res(a);
       } catch(e) {
         console.log(`Installing dependencies for ${a.name}...`);
@@ -20,6 +21,7 @@ module.exports = function loadModule(file, BananenBaseClass) {
           console.log(`Dependencies for ${a.name} installed!`);
           a.internal_BB_Execute("onload");
           await a.internal_BB_Execute("internal.beforeReady");
+          BananenBaseClass.modules.push(a);
           res(a);
         });
       }

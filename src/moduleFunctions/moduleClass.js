@@ -4,12 +4,14 @@ module.exports = class BananenBaseModule {
     this.dependencies = options.dependencies || [];
     this.name = options.name || "???";
     this.toConfigure = options.toConfigure;
+    this.priority = options.priority || 1;
+    if (this.priority < 0 || this.priority > 10) this.priority = 1;
   }
 
   async internal_BB_Execute(thing, ...args) {
     if (thing === "internal.beforeReady" && this.toConfigure) {
       let toConfigure = (options) => {
-        if (!options) throw new Error(`Module configuration ${this.name} error:\nNo opions found!`);
+        if (!options) throw new Error(`Module configuration "${this.name}" error:\nNo opions found!`);
         this.options = {};
         for (let i in this.toConfigure) {
           if (this.toConfigure[i].split(".")[0].toLowerCase() === "required" 
@@ -27,7 +29,7 @@ module.exports = class BananenBaseModule {
       this.BananenBase.toConfigure[this.name.toLowerCase()] = toConfigure;
       return;
     }
-    if (typeof this[thing] !== "function") return;
-    await this[thing](...args);
+    if (typeof this[thing] !== "function") return true;
+    return await this[thing](...args);
   }
 }
