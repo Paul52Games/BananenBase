@@ -76,9 +76,21 @@ declare class cmd {
 		args: [string?]
 	): void
 }
+declare class evnt {
+	constructor(
+		BananenBase: object, 
+		settings: {
+			event: string,
+			enabled?: boolean
+		}
+	)
+
+	run(...args: any): void
+}
 
 declare namespace BananenBase {
 	export let command = cmd;
+	export let event = evnt;
 	export let modules = {
 		loader: BananenBaseModule_Loader,
 		start: BananenBaseModule_Start

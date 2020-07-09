@@ -67,41 +67,28 @@ module.exports = class LoaderModule extends require("../moduleFunctions/moduleCl
       res(true);
     });
   }
+
   loadEvents(folder) {
     return new Promise(async (res) => {
       let files = await this.getFiles(folder);
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
-        // ...
+        let name = file;
+        try {
+          file = require(file);
+          file = new file(this.BananenBase);
+          if (!file.enabled) {
+            console.warn(`${colors("[Loader]").cyan().done()} Event "${name}" disabled!`);
+            continue;
+          }
+          file.dir = name;
+          this.BananenBase.client.on(file.event, (...args) => {
+            file.run(...args);
+          });
+        } catch(e) {}
       }
       console.log(`${colors("[Loader]").cyan().done()} ${files.length} event(s) loaded!`);
       res(true);
     });
-  }
-  loadProcessEvents(folder) {
-    return new Promise(async (res) => {
-      let files = await this.getFiles(folder);
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        // ...
-      }
-      console.log(`${colors("[Loader]").cyan().done()} ${files.length} process event(s) loaded!`);
-      res(true);
-    });
-  }
-  loadFunctions(folder) {
-    return new Promise(async (res) => {
-      let files = await this.getFiles(folder);
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        // ...
-      }
-      console.log(`${colors("[Loader]").cyan().done()} ${files.length} function(s) loaded!`);
-      res(true);
-    });
-  }
-  
-  ready() {
-    // ...
   }
 }
