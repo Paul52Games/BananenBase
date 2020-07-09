@@ -18,7 +18,7 @@ module.exports = class Command extends BananenBase.command {
   }
 
   ready() {
-    console.log(`${this.help.name} is ready!`);
+    // console.log(`${this.help.name} is ready!`);
   }
 
   async run(message, _args) {

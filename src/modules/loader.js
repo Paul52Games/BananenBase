@@ -1,4 +1,6 @@
-module.exports = class StartModule extends require("../moduleFunctions/moduleClass.js") {
+const colors = require("../colors.js");
+
+module.exports = class LoaderModule extends require("../moduleFunctions/moduleClass.js") {
   constructor() {
     super({
       dependencies: ["fsscanner"],
@@ -14,10 +16,12 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
 
   afterConfigure() {
     return new Promise(async (res) => {
+      this.ready = false;
       if (this.options.commands) await this.loadCommands(this.options.commands);
       if (this.options.events) await this.loadEvents(this.options.events);
       if (this.options.process_events) await this.loadProcessEvents(this.options.events);
       if (this.options.functions) await this.loadFunctions(this.options.functions);
+      this.ready = true;
       res(true);
     });
   }
@@ -49,17 +53,17 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
           file = require(file);
           file = new file(this.BananenBase);
           if (!file.enabled) {
-            console.log(`\x1b[36m[Loader]\x1b[0m \x1b[33m[WARN]\x1b[0m Command "${name}" disabled!`);
+            console.warn(`${colors("[Loader]").cyan().done()} Command "${name}" disabled!`);
             continue;
           }
           file.dir = name;
-          if (!file.help.name) return console.warn(`Command "${name}" doesn't have a name, so it won't be activated!`);
+          if (!file.help.name) return console.warn(`${colors("[Loader]").cyan().done()} Command "${name}" doesn't have a name, so it won't be activated!`);
           this.BananenBase.commands[file.help.name] = file;
         } catch(e) {
-          console.log(`\x1b[36m[Loader]\x1b[0m Error while loading command "${name}"!\n${e}`);
+          console.log(`${colors("[Loader]").cyan().done()} Error while loading command "${name}"!\n${e}`);
         }
       }
-      console.log(`\x1b[36m[Loader]\x1b[0m ${Object.keys(this.BananenBase.commands).length} command(s) loaded!`);
+      console.log(`${colors("[Loader]").cyan().done()} ${Object.keys(this.BananenBase.commands).length} command(s) loaded!`);
       res(true);
     });
   }
@@ -70,7 +74,7 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
         let file = files[i];
         // ...
       }
-      console.log(`\x1b[36m[Loader]\x1b[0m ${files.length} event(s) loaded!`);
+      console.log(`${colors("[Loader]").cyan().done()} ${files.length} event(s) loaded!`);
       res(true);
     });
   }
@@ -81,7 +85,7 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
         let file = files[i];
         // ...
       }
-      console.log(`\x1b[36m[Loader]\x1b[0m ${files.length} process event(s) loaded!`);
+      console.log(`${colors("[Loader]").cyan().done()} ${files.length} process event(s) loaded!`);
       res(true);
     });
   }
@@ -92,7 +96,7 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
         let file = files[i];
         // ...
       }
-      console.log(`\x1b[36m[Loader]\x1b[0m ${files.length} function(s) loaded!`);
+      console.log(`${colors("[Loader]").cyan().done()} ${files.length} function(s) loaded!`);
       res(true);
     });
   }

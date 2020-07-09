@@ -1,4 +1,5 @@
 const childProcess = require("child_process");
+const color = require("../colors.js");
 
 module.exports = function loadModule(file, BananenBaseClass) {
   return new Promise(async (res, rej) => {
@@ -18,7 +19,7 @@ module.exports = function loadModule(file, BananenBaseClass) {
       } catch(e) {
         console.log(`Installing dependencies for ${a.name}...`);
         childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, async () => {
-          console.log(`Dependencies for ${a.name} installed!`);
+          console.log(colors(`Dependencies for ${a.name} installed!`).cyan().done());
           a.internal_BB_Execute("onload");
           await a.internal_BB_Execute("internal.beforeReady");
           BananenBaseClass.modules.push(a);

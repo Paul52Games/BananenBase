@@ -1,16 +1,20 @@
 const loadModule = require("./moduleFunctions/moduleLoader.js");
+const colors = require("./colors.js");
 global._BB_startingDir = __dirname;
 
 module.exports = exports = class BananenBase {
   constructor(token) {
     if (!token) throw new Error("Invalid Discord Bot Token!");
-    console.log("Loading the BananenBase...");
+    console.log(colors("Loading the BananenBase...").blue().done());
     let modules = [require("./modules/start.js")];
     this.token = token;
     this.loading = true;
     this.toConfigure = {};
     this.commandChecks = [];
     this.modules = [];
+    this.config = {
+      prefix: "."
+    };
     setTimeout(async () => {
       for (let i = 0; i < modules.length; i++) {
         await loadModule(modules[i], this);
@@ -18,10 +22,9 @@ module.exports = exports = class BananenBase {
       if (!this.start) await loadModule("./modules/start.js", this);
       this.loading = false;
     });
-    this.prefix = ".";
 
     console.warn = (...args) => {
-      process.stdout.write("\x1b[33m[WARN]\x1b[0m ");
+      process.stdout.write(colors("[Warn]").yellow().done(), ...args);
       console.log(...args);
     }
   }
@@ -46,11 +49,19 @@ module.exports = exports = class BananenBase {
     });
     return this;
   }
+
+  setConfig(config) {
+    this.config = config;
+    return this;
+  }
   
   ready(func = () => {}) {
     return new Promise((res) => {
       let i = setInterval(() => {
         if (this.loading || this.loadingModules) return;
+        for (let module of this.modules) {
+          if (!module.ready) return;
+        }
         func(this);
         res(this);
         clearInterval(i);

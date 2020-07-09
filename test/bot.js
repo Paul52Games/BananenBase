@@ -5,6 +5,7 @@ new BananenBase("TOKEN")
     commands: "/commands"
   })  
   .addModule("alias")
+  .setConfig(require("./config.json"))
   .ready((BananenBase) => {
     BananenBase.start();
   });

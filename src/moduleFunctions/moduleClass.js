@@ -6,6 +6,7 @@ module.exports = class BananenBaseModule {
     this.toConfigure = options.toConfigure;
     this.priority = options.priority || 1;
     if (this.priority < 0 || this.priority > 10) this.priority = 1;
+    this.ready = true;
   }
 
   async internal_BB_Execute(thing, ...args) {
@@ -24,12 +25,13 @@ module.exports = class BananenBaseModule {
         for (let i in options) {
           if (!this.options[i.toLowerCase()]) missed.push(i.toLowerCase());
         }
-        if (missed.length !== 0) console.warn(`WARNING: Module Configuration ${this.name}:\n  ${missed.length} option(s) added, but not asked for: ${missed.join(", ")}.`);
+        if (missed.length !== 0) console.warn(`Module Configuration ${this.name}:\n  ${missed.length} option(s) added, but not asked for: ${missed.join(", ")}.`);
       }
       this.BananenBase.toConfigure[this.name.toLowerCase()] = toConfigure;
-      return;
+      return true;
     }
     if (typeof this[thing] !== "function") return true;
-    return await this[thing](...args);
+    await this[thing](...args);
+    return true;
   }
 }
