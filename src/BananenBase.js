@@ -36,10 +36,15 @@ module.exports = exports = class BananenBase {
 
   addModule(name, options) {
     this.loadingModules = true;
+    if (typeof name === "object") {
+      name.forEach(module => {this.addModule(module, options);});
+      return this;
+    }
     setTimeout(async () => {
       let oldName = name;
       if (typeof name === "string" && !name.includes("/") && !name.includes("\\")) name = require("./moduleFunctions/moduleList.js")[name.toLowerCase()];
       let module = await loadModule(name, this).catch((_e) => {
+        console.log(_e);
         throw new Error(`Module "${oldName}" not found!`);
       });
       if (this.toConfigure[module.name.toLowerCase()]) await this.toConfigure[module.name.toLowerCase()](options);

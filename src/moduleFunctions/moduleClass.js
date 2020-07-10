@@ -1,14 +1,15 @@
 module.exports = class BananenBaseModule {
   constructor({name, dependencies, toConfigure, priority} = {
+    name: "???",
     dependencies: [],
     toConfigure: {},
     priority: 1
   }) {
     this.BananenBase = {};
     this.name = name;
-    this.dependencies = dependencies;
-    this.toConfigure = toConfigure;
-    this.priority = priority;
+    this.dependencies = dependencies || [];
+    this.toConfigure = toConfigure || {};
+    this.priority = priority || 1;
     if (this.priority < 0 || this.priority > 10) this.priority = 1;
     this.ready = true;
   }
