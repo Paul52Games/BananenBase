@@ -15,7 +15,7 @@ module.exports = class BananenBaseModule {
   }
 
   async internal_BB_Execute(thing, ...args) {
-    if (thing === "internal.beforeReady" && this.toConfigure) {
+    if (thing === "internal.beforeReady" && this.toConfigure && Object.keys(this.toConfigure).length > 0) {
       let toConfigure = (options) => {
         if (this.BananenBase.config && this.BananenBase.config.modules && this.BananenBase.config.modules[this.name]) {
           if (!options) options = {};
