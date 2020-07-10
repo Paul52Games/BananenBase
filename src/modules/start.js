@@ -4,7 +4,7 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
   constructor() {
     super({
       dependencies: ["discord.js"],
-      name: "Internal.Start"
+      name: "start"
     });
   }
 

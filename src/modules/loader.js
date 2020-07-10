@@ -4,7 +4,7 @@ module.exports = class LoaderModule extends require("../moduleFunctions/moduleCl
   constructor() {
     super({
       dependencies: ["fsscanner"],
-      name: "Internal.Loader",
+      name: "loader",
       toConfigure: {
         commands: "optional.string", 
         events: "optional.string", 

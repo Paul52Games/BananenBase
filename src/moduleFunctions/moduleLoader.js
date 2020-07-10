@@ -17,9 +17,9 @@ module.exports = function loadModule(file, BananenBaseClass) {
         BananenBaseClass.modules.push(a);
         res(a);
       } catch(e) {
-        console.log(`Installing dependencies for ${a.name}...`);
+        console.log(`Installing dependencies for ${color(a.name).yellow().done()}...`);
         childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, async () => {
-          console.log(colors(`Dependencies for ${a.name} installed!`).cyan().done());
+          console.log(colors(`Dependencies for ${color(a.name).yellow().done()} installed!`).cyan().done());
           a.internal_BB_Execute("onload");
           await a.internal_BB_Execute("internal.beforeReady");
           BananenBaseClass.modules.push(a);

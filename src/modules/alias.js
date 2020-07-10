@@ -1,7 +1,7 @@
 module.exports = class StartModule extends require("../moduleFunctions/moduleClass.js") {
   constructor() {
     super({
-      name: "Internal.Alias",
+      name: "alias",
       priority: 0
     });
   }
