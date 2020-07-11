@@ -9,6 +9,8 @@ The new version of the BananenBase is about **500 ms** faster than the old versi
 - Uses as less ram, CPU and time as possible!
 _And much more_
 
+Take a look at the [wiki](https://github.com/Paultje52/BananenBase/wiki) to start now with the beta!
+
 ## Todo
 **Base**
 - [X] Base (Token etc)
@@ -17,12 +19,12 @@ _And much more_
 
 **Modules**
 - [X] Alias module
-- [ ] Loader module
+- [x] Loader module
+- [ ] Security module
 - [ ] Database module
 - [ ] Message flags module
 - [ ] Smart event module
 - [ ] Smart debug module
-- [ ] Permissions module
 - [ ] One-type (or random) reply module
 
 **Dashboard**
