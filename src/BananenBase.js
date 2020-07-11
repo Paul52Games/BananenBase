@@ -85,3 +85,4 @@ modules.setExport(exports);
 exports.command = require("./constructors/command.js");
 exports.event = require("./constructors/event.js");
 exports.module = require("./moduleFunctions/moduleClass.js");
+exports.colors = require("./colors.js");
