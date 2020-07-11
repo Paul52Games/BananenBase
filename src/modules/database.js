@@ -35,10 +35,10 @@ module.exports = class DatabaseModule extends require("../moduleFunctions/module
 
   async onMessage(message, continues) {
     if (!continues) return false;
-    message.author.settings = await database.get(`user-${message.author.id}`);
+    message.author.settings = await this.database.get(`user-${message.author.id}`);
     if (!message.author.settings) message.author.settings = this.defaults.user;
 
-    message.guild.settings = await database.get(`guild-${message.guild.id}`);
+    message.guild.settings = await this.database.get(`guild-${message.guild.id}`);
     if (!message.guild.settings) message.guild.settings = this.defaults.guild;
     // TODO
   }
