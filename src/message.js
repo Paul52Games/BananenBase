@@ -5,7 +5,7 @@ module.exports = async (message, BananenBase) => {
   BananenBase.modules = BananenBase.modules.sort((a, b) => a.priority-b.priority);
   // TODO: Sorting
   for (let i in BananenBase.modules) {
-    let res = await BananenBase.modules[i].internal_BB_Execute("onMessage", message);
+    let res = await BananenBase.modules[i].internal_BB_Execute("onMessage", message, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
   if (!canGoFuther) return;
@@ -27,7 +27,7 @@ module.exports = async (message, BananenBase) => {
 
   canGoFuther = true;
   for (let i = 0; i < BananenBase.modules.length; i++) {
-    let res = await BananenBase.modules[i].internal_BB_Execute("beforeCommandExecute", message);
+    let res = await BananenBase.modules[i].internal_BB_Execute("beforeCommandExecute", message, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
   if (!canGoFuther) return;
@@ -36,7 +36,7 @@ module.exports = async (message, BananenBase) => {
   
   canGoFuther = true;
   for (let i = 0; i < BananenBase.modules.length; i++) {
-    let res = await BananenBase.modules[i].internal_BB_Execute("afterCommandExecute", message);
+    let res = await BananenBase.modules[i].internal_BB_Execute("afterCommandExecute", message, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
   if (!canGoFuther) return;

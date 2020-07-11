@@ -44,13 +44,16 @@ module.exports = exports = class BananenBase {
       let oldName = name;
       if (typeof name === "string" && !name.includes("/") && !name.includes("\\")) name = require("./moduleFunctions/moduleList.js")[name.toLowerCase()];
       let module = await loadModule(name, this).catch((_e) => {
-        console.log(_e);
         throw new Error(`Module "${oldName}" not found!`);
       });
-      if (this.toConfigure[module.name.toLowerCase()]) await this.toConfigure[module.name.toLowerCase()](options);
-      await module.internal_BB_Execute("afterConfigure");
-      await module.internal_BB_Execute("beforeReady");
-      this.loadingModules = false;
+      this.modules[module.name] = module;
+      let i = setInterval(async () => {
+        if (!module.ready || module.installingDependencies) return;
+        clearInterval(i);
+        if (this.toConfigure[module.name.toLowerCase()]) await this.toConfigure[module.name.toLowerCase()](options);
+        await module.internal_BB_Execute("afterConfigure");
+        this.loadingModules = false;
+      });
     });
     return this;
   }
@@ -64,8 +67,9 @@ module.exports = exports = class BananenBase {
     return new Promise((res) => {
       let i = setInterval(() => {
         if (this.loading || this.loadingModules) return;
-        for (let module of this.modules) {
-          if (!module.ready) return;
+        for (let module in this.modules) {
+          module = this.modules[module];
+          if (!module.ready || module.installingDependencies) return;
         }
         func(this);
         res(this);
@@ -80,3 +84,4 @@ modules.setExport(exports);
 
 exports.command = require("./constructors/command.js");
 exports.event = require("./constructors/event.js");
+exports.module = require("./moduleFunctions/moduleClass.js");

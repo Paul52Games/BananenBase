@@ -24,18 +24,18 @@ module.exports = class BananenBaseModule {
         this.options = {};
         for (let i in this.toConfigure) {
           if (this.toConfigure[i].split(".")[0].toLowerCase() === "required" 
-            && !options[i.toLowerCase()]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i.toLowerCase()} required, but not found.`);
-          if (typeof options[i.toLowerCase()] === "undefined") continue;
-          if (typeof options[i.toLowerCase()] !== this.toConfigure[i].split(".")[1].toLowerCase()) throw new Error(`Module configuration ${this.name} error:\n  Option ${i.toLowerCase()} needs to be "${this.toConfigure[i].split(".")[1].toLowerCase()}", but it is "${typeof options[i.toLowerCase()]}".`);
-          this.options[i.toLowerCase()] = options[i.toLowerCase()];
+            && !options[i]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i.toLowerCase()} required, but not found.`);
+          if (typeof options[i] === "undefined") continue;
+          if (typeof options[i] !== this.toConfigure[i].split(".")[1]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i} needs to be "${this.toConfigure[i].split(".")[1]}", but it is "${typeof options[i]}".`);
+          this.options[i] = options[i];
         }
         let missed = [];
         for (let i in options) {
-          if (!this.options[i.toLowerCase()]) missed.push(i.toLowerCase());
+          if (!this.options[i]) missed.push(i);
         }
         if (missed.length !== 0) console.warn(`Module Configuration ${this.name}:\n  ${missed.length} option(s) added, but not asked for: ${missed.join(", ")}.`);
       }
-      this.BananenBase.toConfigure[this.name.toLowerCase()] = toConfigure;
+      this.BananenBase.toConfigure[this.name] = toConfigure;
       return true;
     }
     if (typeof this[thing] !== "function") return true;

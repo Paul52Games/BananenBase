@@ -8,22 +8,34 @@ module.exports = function loadModule(file, BananenBaseClass) {
       let a = new file();
       a.BananenBase = BananenBaseClass;
       a.internal_BB_Execute("beforeload");
+      a.ready = false;
+      a.installingDependencies = true;
+      res(a);
       try {
         for (let i = 0; i < a.dependencies.length; i++) {
           require(a.dependencies[i]);
         }
-        a.internal_BB_Execute("onload");
+        delete a.installingDependencies;
+        await a.internal_BB_Execute("onload");
+        a.ready = true;
         await a.internal_BB_Execute("internal.beforeReady");
         BananenBaseClass.modules.push(a);
-        res(a);
       } catch(e) {
         console.log(`Installing dependencies for ${color(a.name).yellow().done()}...`);
         childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, async () => {
-          console.log(colors(`Dependencies for ${color(a.name).yellow().done()} installed!`).cyan().done());
-          a.internal_BB_Execute("onload");
+          try {
+            for (let i = 0; i < a.dependencies.length; i++) {
+              require(a.dependencies[i]);
+            }
+          } catch(e) {
+            return console.log(color(`Installing dependencies for "${a.name}" didn't go as planned!`, e));
+          }
+          console.log(color(`Dependencies for ${color(a.name).yellow().done()} installed!`).cyan().done());
+          delete a.installingDependencies;
+          await a.internal_BB_Execute("onload");
+          a.ready = true;
           await a.internal_BB_Execute("internal.beforeReady");
           BananenBaseClass.modules.push(a);
-          res(a);
         });
       }
     } catch(e) {
