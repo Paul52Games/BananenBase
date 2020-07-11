@@ -27,9 +27,7 @@ module.exports = function loadModule(file, BananenBaseClass) {
             for (let i = 0; i < a.dependencies.length; i++) {
               require(a.dependencies[i]);
             }
-          } catch(e) {
-            return console.log(color(`Installing dependencies for "${a.name}" didn't go as planned!`, e));
-          }
+          } catch(e) {}
           console.log(color(`Dependencies for ${color(a.name).yellow().done()} installed!`).cyan().done());
           delete a.installingDependencies;
           await a.internal_BB_Execute("onload");

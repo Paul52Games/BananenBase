@@ -8,10 +8,7 @@ module.exports = class Command {
 
     this.help = {
       name: settings.name || "",
-      description: settings.description || false,
-      usage: settings.usage || false,
-      examples: settings.examples || [],
-      args: settings.args || []
+      description: settings.description || false
     };
     this.help.name.toLowerCase();
 
