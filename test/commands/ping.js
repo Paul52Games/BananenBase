@@ -24,6 +24,14 @@ module.exports = class Command extends BananenBase.command {
   async run(message, _args) {
     let start = Date.now();
     let msg = await message.channel.send("Pinging...");
-    msg.edit(`:ping_pong: ${Date.now()-start-this.client.ping}ms\n:blue_heart: ${this.client.ping}ms`);
+    let ping = Date.now()-start-this.client.ping;
+
+    if (message.flags.includes("avarage")) {
+      await msg.edit("1");
+      await msg.edit("2");
+      ping = (Date.now()-start-this.client.ping)/3;
+    }
+
+    msg.edit(`:ping_pong: ${Math.floor(ping)}ms\n:blue_heart: ${Math.floor(this.client.ping)}ms`);
   }
 }

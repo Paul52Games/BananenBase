@@ -20,9 +20,9 @@ Take a look at the [wiki](https://github.com/Paultje52/BananenBase/wiki) to star
 **Modules**
 - [X] Alias module
 - [x] Loader module
-- [ ] Security module
-- [ ] Database module
-- [ ] Message flags module
+- [X] Security module
+- [X] Database module
+- [X] Message flags module
 - [ ] Smart event module
 - [ ] Smart debug module
 - [ ] One-type (or random) reply module
