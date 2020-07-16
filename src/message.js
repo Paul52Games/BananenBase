@@ -12,7 +12,7 @@ module.exports = async (message, BananenBase) => {
   
   BananenBase.client.emit("BananenBase.Message", message);
 
-  let prefix = BananenBase.prefix;
+  let prefix = BananenBase.config.prefix;
   if (message.guild && message.guild.settings && message.guild.settings.prefix) prefix = message.guild.settings.prefix;
   if (message.author && message.author.settings && message.author.settings.prefix) prefix = message.guild.author.prefix;
   if (!prefix) prefix = ".";

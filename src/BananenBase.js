@@ -60,6 +60,7 @@ module.exports = exports = class BananenBase {
 
   setConfig(config) {
     this.config = config;
+    if (!this.config.prefix) this.config.prefix = ".";
     return this;
   }
   
