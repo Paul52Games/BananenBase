@@ -1,7 +1,18 @@
-# V4.0
-_This is a rewrite version. If you want to use the old unsupported version, use `npm i -s bananenbase@3.2.11`_
+# V4.0.0
+A compleat rewrite!
 
-Everything is new!
+- The BananenBase uses a module-bases system now!
+- Added modules: alias, database, loader, messageflags, security and start!
+- Finaly created a documentation!
+- Removed webserver functions, they will be added in V4.1
+
+# V3.2.13
+## Fixed
+- Custom message functions
+
+# V3.2.12
+## Fixed
+- A database load issue
 
 # V3.2.11
 ## Fixed

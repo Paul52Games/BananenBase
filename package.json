@@ -1,13 +1,14 @@
 {
   "name": "bananenbase",
-  "version": "3.2.10",
-  "description": "Thé discord.js AND express framework!",
+  "version": "4.0.0",
+  "description": "Thé discord.js framework!",
   "main": "./src/BananenBase.js",
   "types": "./src/BananenBase.d.ts",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "echo You installed BananenBase V4! Here is the upgrade guild: https://github.com/Paultje52/BananenBase/wiki/update-guide:-V3-to-V4"
   },
   "repository": {
     "type": "git",
