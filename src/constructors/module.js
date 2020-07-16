@@ -21,19 +21,22 @@ module.exports = class BananenBaseModule {
         if (this.BananenBase.config && this.BananenBase.config.modules && this.BananenBase.config.modules[this.name]) {
           if (!options) options = {};
           options = {...this.BananenBase.config.modules[this.name], ...options};
-        } else if (!options) throw new Error(`Module configuration "${this.name}" error:\nNo opions found!`);
+        } else if (!options) {
+          console.log(`Module configuration "${this.name}" message:\n    No opions found!`);
+          options = {};
+        }
         for (let i in this.toConfigure) {
           if (this.toConfigure[i].split(".")[0].toLowerCase() === "required" 
-            && !options[i]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i.toLowerCase()} required, but not found.`);
+            && !options[i]) throw new Error(`Module configuration ${this.name} error:\n    Option ${i.toLowerCase()} required, but not found.`);
           if (typeof options[i] === "undefined") continue;
-          if (typeof options[i] !== this.toConfigure[i].split(".")[1]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i} needs to be "${this.toConfigure[i].split(".")[1]}", but it is "${typeof options[i]}".`);
+          if (typeof options[i] !== this.toConfigure[i].split(".")[1]) throw new Error(`Module configuration ${this.name} error:\n    Option ${i} needs to be "${this.toConfigure[i].split(".")[1]}", but it is "${typeof options[i]}".`);
           this.options[i] = options[i];
         }
         let missed = [];
         for (let i in options) {
           if (!this.options[i]) missed.push(i);
         }
-        if (missed.length !== 0) console.warn(`Module Configuration ${this.name}:\n  ${missed.length} option(s) added, but not asked for: ${missed.join(", ")}.`);
+        if (missed.length !== 0) console.warn(`Module Configuration ${this.name}:\n    ${missed.length} option(s) added, but not asked for: ${missed.join(", ")}.`);
       }
       this.BananenBase.toConfigure[this.name] = toConfigure;
       return true;

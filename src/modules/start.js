@@ -4,11 +4,19 @@ module.exports = class StartModule extends require("../constructors/module.js") 
   constructor() {
     super({
       dependencies: ["discord.js"],
-      name: "start"
+      name: "start",
+      toConfigure: {
+        disabled: "boolean.optional"
+      }
     });
   }
 
   onload() {
+    this.BananenBase.loading = false;
+  }
+
+  afterConfigure() {
+    if (this.options.disabled) return;
     const discord = require("discord.js");
     this.client = new discord.Client();
     this.BananenBase.client = this.client;
