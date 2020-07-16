@@ -1,4 +1,4 @@
-module.exports = class StartModule extends require("../moduleFunctions/moduleClass.js") {
+module.exports = class StartModule extends require("../constructors/module.js") {
   constructor() {
     super({
       name: "alias",
@@ -7,7 +7,6 @@ module.exports = class StartModule extends require("../moduleFunctions/moduleCla
   }
 
   onMessage(message) {
-    // TODO: message.tmp.command
     let prefix = this.BananenBase.prefix;
     if (message.guild && message.guild.settings && message.guild.settings.prefix) prefix = message.guild.settings.prefix;
     if (message.author && message.author.settings && message.author.settings.prefix) prefix = message.guild.author.prefix;

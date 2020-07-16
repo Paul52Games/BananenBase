@@ -10,6 +10,7 @@ module.exports = class BananenBaseModule {
     this.dependencies = dependencies || [];
     this.toConfigure = toConfigure || {};
     this.priority = priority || 1;
+    this.options = {};
     if (this.priority < 0 || this.priority > 10) this.priority = 1;
     this.ready = true;
   }
@@ -21,7 +22,6 @@ module.exports = class BananenBaseModule {
           if (!options) options = {};
           options = {...this.BananenBase.config.modules[this.name], ...options};
         } else if (!options) throw new Error(`Module configuration "${this.name}" error:\nNo opions found!`);
-        this.options = {};
         for (let i in this.toConfigure) {
           if (this.toConfigure[i].split(".")[0].toLowerCase() === "required" 
             && !options[i]) throw new Error(`Module configuration ${this.name} error:\n  Option ${i.toLowerCase()} required, but not found.`);

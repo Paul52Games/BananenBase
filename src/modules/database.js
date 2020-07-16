@@ -1,7 +1,7 @@
 const path = require("path");
 const colors = require("../colors.js");
 
-module.exports = class DatabaseModule extends require("../moduleFunctions/moduleClass.js") {
+module.exports = class DatabaseModule extends require("../constructors/module.js") {
   constructor() {
     super({
       name: "database",
@@ -40,7 +40,6 @@ module.exports = class DatabaseModule extends require("../moduleFunctions/module
 
     message.guild.settings = await this.database.get(`guild-${message.guild.id}`);
     if (!message.guild.settings) message.guild.settings = this.defaults.guild;
-    // TODO
   }
 }
 

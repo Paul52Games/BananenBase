@@ -16,6 +16,9 @@
         "balance": 10
       },
       "inMemory": true
+    },
+    "messageflags": {
+      "prefix": "-"
     }
   }
 }

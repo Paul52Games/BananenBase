@@ -9,13 +9,13 @@ module.exports = async (message, BananenBase) => {
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
   if (!canGoFuther) return;
+  
+  BananenBase.client.emit("BananenBase.Message", message);
 
   let prefix = BananenBase.prefix;
   if (message.guild && message.guild.settings && message.guild.settings.prefix) prefix = message.guild.settings.prefix;
   if (message.author && message.author.settings && message.author.settings.prefix) prefix = message.guild.author.prefix;
   if (!prefix) prefix = ".";
-
-  BananenBase.client.emit("BananenBase.Message", message);
 
   if (!message.content.toLowerCase().startsWith(prefix)) return;
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
