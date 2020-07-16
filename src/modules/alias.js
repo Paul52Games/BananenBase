@@ -20,7 +20,5 @@ module.exports = class StartModule extends require("../constructors/module.js") 
       let cmd = this.BananenBase.commands[i];
       if (cmd.arguments.alias && cmd.arguments.alias.includes(command)) message.tmp.command = cmd;
     }
-
-    return true;
   }
 }

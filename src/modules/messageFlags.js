@@ -20,6 +20,5 @@ module.exports = class MessageFlags extends require("../constructors/module.js")
     });
     message.flags = flags;
 
-    return true;
   }
 }

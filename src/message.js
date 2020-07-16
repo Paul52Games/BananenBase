@@ -16,6 +16,7 @@ module.exports = async (message, BananenBase) => {
   if (message.guild && message.guild.settings && message.guild.settings.prefix) prefix = message.guild.settings.prefix;
   if (message.author && message.author.settings && message.author.settings.prefix) prefix = message.guild.author.prefix;
   if (!prefix) prefix = ".";
+  message.prefix = prefix;
 
   if (!message.content.toLowerCase().startsWith(prefix)) return;
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -25,11 +26,13 @@ module.exports = async (message, BananenBase) => {
   if (!cmd) return;
   delete message.tmp;
 
+  message.args = args;
   for (let i = 0; i < BananenBase.modules.length; i++) {
     let res = await BananenBase.modules[i].internal_BB_Execute("beforeCommandExecute", message, cmd, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
   if (!canGoFuther) return;
+  delete message.args;
 
   cmd.run(message, args);
   

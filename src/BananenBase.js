@@ -5,6 +5,7 @@ global._BB_startingDir = __dirname;
 module.exports = exports = class BananenBase {
   constructor(token) {
     if (!token) throw new Error("Invalid Discord Bot Token!");
+    if (typeof token === "object") throw new Error("Warning! You're currently using BananenBase V4! Look at the update guild: https://github.com/Paultje52/BananenBase/wiki/update-guide:-V3-to-V4");
     console.log(colors("Loading the BananenBase...").blue().done());
     let modules = [require("./modules/start.js")];
     this.token = token;

@@ -39,7 +39,6 @@ module.exports = class BananenBaseModule {
       return true;
     }
     if (typeof this[thing] !== "function") return true;
-    await this[thing](...args);
-    return true;
+    return await this[thing](...args);
   }
 }

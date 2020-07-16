@@ -14,6 +14,13 @@ module.exports = class Command extends BananenBase.command {
     }, {
       name: "alias",
       value: ["p", "pingpong", "pong"]
+    }, {
+      name: "args",
+      value: {
+        usage: "%prefix%ping",
+        examples: ["%prefix%ping", "%prefix%ping -avarage"],
+        checks: []
+      }
     });
   }
 
