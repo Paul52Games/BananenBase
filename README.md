@@ -1,33 +1,13 @@
 # BananenBase
-Welcome! This is the new work-in-progress version 4.0 of the BananenBase, with usefull features and much better code.
+The BananenBase is a discord.js framework to make your own Discord bot!
 
-The new version of the BananenBase is about **500 ms** faster than the old version!
+It's very easy to use, with a good documentation and support for custom modules!
 
-## Features (Old and New)
-- Write only a couple lines and make a whole discord bot!
-- Use different modules for your needs
-- Uses as less ram, CPU and time as possible!
-_And much more_
+You can use one of the many modules that exist, but you can also make your own module! 
 
-Take a look at the [wiki](https://github.com/Paultje52/BananenBase/wiki) to start now with the beta!
+The new version of the BananenBase is **10 times** faster than the old version (without modules)!
 
-## Todo
-**Base**
-- [X] Base (Token etc)
-- [X] Module loader
-- [X] Start module
-
-**Modules**
-- [X] Alias module
-- [x] Loader module
-- [X] Security module
-- [X] Database module
-- [X] Message flags module
-- [ ] Smart event module
-- [ ] Smart debug module
-- [ ] One-type (or random) reply module
-
-**Dashboard**
-- [ ] Main dashboard module
-- [ ] Session module
-- [ ] Discord Login module
+## Links
+* [Github](https://github.com/Paultje52/BananenBase)
+* [Documentation](https://github.com/Paultje52/BananenBase/wiki)
+* [Example](https://github.com/Paultje52/BananenBase/tree/master/test)
