@@ -7,9 +7,9 @@ module.exports = exports = class BananenBase {
     if (!token) throw new Error("Invalid Discord Bot Token!");
     if (typeof token === "object") throw new Error("Warning! You're currently using BananenBase V4! Look at the update guild: https://github.com/Paultje52/BananenBase/wiki/update-guide:-V3-to-V4");
     console.log(colors("Loading the BananenBase...").blue().done());
-    let modules = [];
     this.token = token;
     this.loading = true;
+    this.installingDependencies = 0;
     this.toConfigure = {};
     this.commandChecks = [];
     this.modules = [];
@@ -61,15 +61,16 @@ module.exports = exports = class BananenBase {
   
   ready(func = () => {}) {
     return new Promise((res) => {
-      let i = setInterval(() => {
-        if (this.loading || this.loadingModules) return;
+      this.readyFunction = [func, res];
+      this.i = setInterval(() => {
+        if (this.loading || this.loadingModules || this.installingDependencies) return;
         for (let module in this.modules) {
           module = this.modules[module];
           if (!module.ready || module.installingDependencies) return;
         }
+        clearInterval(this.i);
         func(this);
         res(this);
-        clearInterval(i);
       });
     });
   }

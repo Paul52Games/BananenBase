@@ -10,6 +10,7 @@ module.exports = function loadModule(file, BananenBaseClass) {
       a.internal_BB_Execute("beforeload");
       a.ready = false;
       a.installingDependencies = true;
+
       res(a);
       try {
         for (let i = 0; i < a.dependencies.length; i++) {
@@ -21,20 +22,20 @@ module.exports = function loadModule(file, BananenBaseClass) {
         BananenBaseClass.modules.push(a);
         a.ready = true;
       } catch(e) {
+        BananenBaseClass.installingDependencies++;
         console.log(`Installing dependencies for ${color(a.name).yellow().done()}...`);
-        childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, async () => {
-          console.log(`Validating ${color(a.name).yellow().done()} dependencies...`);
-          await untilPackageInstalled(a.dependencies);
-          try {
-            for (let i = 0; i < a.dependencies.length; i++) {
-              require(a.dependencies[i]);
-            }
-          } catch(e) {
-            console.warn(color(`Couldn't install dependencies for ${color(a.name).yellow().done()}!\n    Please run the following command yourself:\n      npm i -s ${a.dependencies.join(" ")}\n    Can't continue with starting the BananenBase!`).cyan().done());
+        childProcess.exec(`npm i -s ${a.dependencies.join(" ")}`, () => { setTimeout(async () => {
+
+          BananenBaseClass.installingDependencies--;
+          if (BananenBaseClass.installingDependencies === 0) {
+            BananenBaseClass.ready = true;
+            BananenBaseClass.modules = [];
+            clearInterval(BananenBaseClass.i);
+
+            console.log(color(`\nAll dependencies installed, reboot required!`).cyan().done());   
             setTimeout(() => {
-              process.exit();
+              process.exit(1);
             }, 1000);
-            return;
           }
           console.log(color(`Dependencies for ${color(a.name).yellow().done()} installed!`).cyan().done());
           delete a.installingDependencies;
@@ -42,7 +43,10 @@ module.exports = function loadModule(file, BananenBaseClass) {
           await a.internal_BB_Execute("internal.beforeReady");
           BananenBaseClass.modules.push(a);
           a.ready = true;
-        });
+
+          BananenBaseClass.start = () => {};
+
+        }, 1000); });
       }
     } catch(e) {
       rej(e);
@@ -50,28 +54,28 @@ module.exports = function loadModule(file, BananenBaseClass) {
   });
 }
 
-function wait(time) {
-  return new Promise((res) => {
-    setTimeout(res, time, true);
-  });
-}
+// function wait(time) {
+//   return new Promise((res) => {
+//     setTimeout(res, time, true);
+//   });
+// }
 
-function untilPackageInstalled(packages, tries = 0) {
-  return new Promise(async (res) => {
-    if (tries === 5) return res(false);
-    try {
-      for (let i = 0; i < packages.length; i++) {
-        require(packages[i]);
-      }
-      res(true);
-    } catch(e) {
-      await wait(1000);
-      try {
-        for (let i = 0; i < packages.length; i++) {
-          delete require.cache[require.resolve(packages[i])];
-        }
-      } catch(e) {}
-      res(await untilPackageInstalled(packages), tries+1);
-    }
-  });
-}
+// function untilPackageInstalled(packages, tries = 0) {
+//   return new Promise(async (res) => {
+//     if (tries === 5) return res(false);
+//     try {
+//       for (let i = 0; i < packages.length; i++) {
+//         require(packages[i]);
+//       }
+//       res(true);
+//     } catch(e) {
+//       await wait(1000);
+//       try {
+//         for (let i = 0; i < packages.length; i++) {
+//           delete require.cache[require.resolve(packages[i])];
+//         }
+//       } catch(e) {}
+//       res(await untilPackageInstalled(packages), tries+1);
+//     }
+//   });
+// }
