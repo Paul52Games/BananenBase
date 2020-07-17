@@ -83,3 +83,4 @@ exports.command = require("./constructors/command.js");
 exports.event = require("./constructors/event.js");
 exports.module = require("./constructors/module.js");
 exports.colors = require("./colors.js");
+exports.version = require("../package.json").version;
