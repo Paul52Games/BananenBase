@@ -35,10 +35,12 @@ module.exports = class DatabaseModule extends require("../constructors/module.js
 
   async onMessage(message, continues) {
     if (!continues) return false;
-    message.author.settings = await this.database.get(`user-${message.author.id}`);
+    message.author.dbId = `user-${message.author.id}`;
+    message.author.settings = await this.database.get(message.author.dbId);
     if (!message.author.settings) message.author.settings = this.defaults.user;
 
-    message.guild.settings = await this.database.get(`guild-${message.guild.id}`);
+    message.guild.dbId = `guild-${message.guild.id}`;
+    message.guild.settings = await this.database.get(message.guild.dbId);
     if (!message.guild.settings) message.guild.settings = this.defaults.guild;
   }
 }
