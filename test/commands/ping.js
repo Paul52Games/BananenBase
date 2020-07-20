@@ -5,11 +5,6 @@ module.exports = class Command extends BananenBase.command {
     super(BananenBase, {
       name: "ping",
       description: "Test my reaction speed!",
-      usage: "ping",
-      examples: [
-        "ping"
-      ],
-      args: [],
       enabled: true
     }, {
       name: "alias",

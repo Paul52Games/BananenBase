@@ -1,10 +1,12 @@
 module.exports = async (message, BananenBase) => {
   message.tmp = {};
+  if (!message.guild || message.author.bot) return;
 
   let canGoFuther = true;
   // BananenBase.modules = BananenBase.modules.sort((a, b) => a.priority-b.priority);
   // TODO: Sorting
   for (let i in BananenBase.modules) {
+    if (Object.keys(BananenBase.modules[i]).length === 0) continue;
     let res = await BananenBase.modules[i].internal_BB_Execute("onMessage", message, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
@@ -28,6 +30,7 @@ module.exports = async (message, BananenBase) => {
 
   message.args = args;
   for (let i = 0; i < BananenBase.modules.length; i++) {
+    if (Object.keys(BananenBase.modules[i]).length === 0) continue;
     let res = await BananenBase.modules[i].internal_BB_Execute("beforeCommandExecute", message, cmd, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }
@@ -37,6 +40,7 @@ module.exports = async (message, BananenBase) => {
   cmd.run(message, args);
   
   for (let i = 0; i < BananenBase.modules.length; i++) {
+    if (Object.keys(BananenBase.modules[i]).length === 0) continue;
     let res = await BananenBase.modules[i].internal_BB_Execute("afterCommandExecute", message, cmd, canGoFuther);
     if (typeof res === "boolean" && !res) canGoFuther = false;
   }

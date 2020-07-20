@@ -66,7 +66,7 @@ module.exports = exports = class BananenBase {
         if (this.loading || this.loadingModules || this.installingDependencies) return;
         for (let module in this.modules) {
           module = this.modules[module];
-          if (!module.ready || module.installingDependencies) return;
+          if ((!module.ready || module.installingDependencies) && module.name) return;
         }
         clearInterval(this.i);
         func(this);
