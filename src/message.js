@@ -1,3 +1,5 @@
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 module.exports = async (message, BananenBase) => {
   message.tmp = {};
   if (!message.guild || message.author.bot) return;
