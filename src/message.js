@@ -19,8 +19,9 @@ module.exports = async (message, BananenBase) => {
   if (message.author && message.author.settings && message.author.settings.prefix) prefix = message.guild.author.prefix;
   if (!prefix) prefix = ".";
   message.prefix = prefix;
+  let regExpPrefix = new RegExp(`^(<@!?${BananenBase.client.user.id}>|${escapeRegex(prefix)})\\s*`);
 
-  if (!message.content.toLowerCase().startsWith(prefix)) return;
+  if (!message.content.toLowerCase().test(regExpPrefix)) return;
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
   let command = args.shift().toLowerCase();
 
