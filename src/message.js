@@ -23,7 +23,7 @@ module.exports = async (message, BananenBase) => {
   message.prefix = prefix;
   let prefixRegex  = new RegExp(`^(<@!?${BananenBase.client.user.id}>|${escapeRegex(prefix)})\\s*`);
 
-  if (!message.content.toLowerCase().test(prefixRegex)) return;
+  if (!prefixRegex.test(message.content.toLowerCase())) return;
 	let [, matchedPrefix] = message.content.match(prefixRegex);
 	let args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 	let command = args.shift().toLowerCase();
