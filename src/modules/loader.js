@@ -41,10 +41,7 @@ module.exports = class LoaderModule extends require("../constructors/module.js")
     });
     const files = await Promise.all(dirents.map((dirent) => {
       const res = resolve(dir, dirent.name);
-      if(dirent.isDirectory()) {
-        return this.loadFiles(res)
-      }
-      return res
+      return dirent.isDirectory() ? this.loadFiles(res) : res;
     }));
     return Array.prototype.concat(...files);
   }
