@@ -1,4 +1,6 @@
 const colors = require("../colors.js");
+const { resolve } = require('path');
+const { readdir } = require('fs').promises;
 
 module.exports = class LoaderModule extends require("../constructors/module.js") {
   constructor() {
@@ -26,16 +28,23 @@ module.exports = class LoaderModule extends require("../constructors/module.js")
   }
   getFiles(folder) {
     return new Promise(async (res) => {
-      const { existsSync } = require('fs')
+      const {
+        existsSync
+      } = require('fs')
       if (!existsSync(`${process.cwd()}/${folder}`)) return res([]);
       res(await this.loadFiles(`${process.cwd()}/${folder}`));
     });
   }
   async loadFiles(dir) {
-    const dirents = await require('fs').promises.readdir(dir, { withFileTypes: true });
+    const dirents = await readdir(dir, {
+      withFileTypes: true
+    });
     const files = await Promise.all(dirents.map((dirent) => {
-      const res = require("path").resolve(dir, dirent.name);
-      return dirent.isDirectory() ? getFiles(res) : res;
+      const res = resolve(dir, dirent.name);
+      if(dirent.isDirectory()) {
+        return this.loadFiles(res)
+      }
+      return res
     }));
     return Array.prototype.concat(...files);
   }
